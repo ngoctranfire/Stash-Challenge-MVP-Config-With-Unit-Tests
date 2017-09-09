@@ -5,6 +5,8 @@ import com.stashinvest.stashchallenge.api.model.MetadataResponse;
 
 import javax.inject.Inject;
 
+import io.reactivex.Flowable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 
 public class GettyImageService {
@@ -18,16 +20,19 @@ public class GettyImageService {
     public GettyImageService() {
     }
 
-    public Call<ImageResponse> searchImages(String phrase) {
-        return api.searchImages(phrase, FIELDS, SORT_ORDER);
+    public Flowable<ImageResponse> searchImages(String phrase) {
+        return api.searchImages(phrase, FIELDS, SORT_ORDER)
+                .subscribeOn(Schedulers.io());
     }
 
 
-    public Call<MetadataResponse> getImageMetadata(String id) {
-        return api.getImageMetadata(id);
+    public Flowable<MetadataResponse> getImageMetadata(String id) {
+        return api.getImageMetadata(id)
+                .subscribeOn(Schedulers.io());
     }
 
-    public Call<ImageResponse> getSimilarImages(String id) {
-        return api.getSimilarImages(id);
+    public Flowable<ImageResponse> getSimilarImages(String id) {
+        return api.getSimilarImages(id)
+                .subscribeOn(Schedulers.io());
     }
 }

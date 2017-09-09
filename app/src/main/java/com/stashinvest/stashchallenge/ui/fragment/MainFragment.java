@@ -22,6 +22,9 @@ import com.stashinvest.stashchallenge.ui.factory.GettyImageFactory;
 import com.stashinvest.stashchallenge.ui.viewmodel.BaseViewModel;
 import com.stashinvest.stashchallenge.util.SpaceItemDecoration;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,13 +34,15 @@ import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.view.View.GONE;
 
-public class MainFragment extends Fragment implements Callback<ImageResponse> {
+public class MainFragment extends Fragment{
     @Inject
     ViewModelAdapter adapter;
     @Inject
@@ -92,20 +97,13 @@ public class MainFragment extends Fragment implements Callback<ImageResponse> {
         unbinder.unbind();
     }
 
-    @Override
-    public void onResponse(Call<ImageResponse> call, Response<ImageResponse> response) {
+    public void onResponse(ImageResponse response) {
         progressBar.setVisibility(GONE);
 
-        if (response.isSuccessful()) {
-            List<ImageResult> images = response.body().getImages();
-            updateImages(images);
-        } else {
-            //todo - show error
-        }
+        List<ImageResult> images = response.getImages();
+        updateImages(images);
     }
-
-    @Override
-    public void onFailure(Call<ImageResponse> call, Throwable t) {
+    public void onFailure(Throwable t) {
         progressBar.setVisibility(GONE);
 
         //todo - show error
@@ -113,8 +111,9 @@ public class MainFragment extends Fragment implements Callback<ImageResponse> {
 
     private void search() {
         progressBar.setVisibility(View.VISIBLE);
-        Call<ImageResponse> call = gettyImageService.searchImages(searchView.getText().toString());
-        call.enqueue(this);
+        gettyImageService.searchImages(searchView.getText().toString())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onResponse, this::onFailure);
     }
 
     private void updateImages(List<ImageResult> images) {
