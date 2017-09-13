@@ -7,4 +7,5 @@
 
     <string name="search_hint">Search Phrase</string>
     <string name="metadata_title_format">%1$s by %2$s</string>
+    <string name="search_error">Failed to complete the search for some reason.</string>
 </resources>

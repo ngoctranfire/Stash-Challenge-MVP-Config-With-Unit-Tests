@@ -1,4 +1,4 @@
-package com.stashinvest.stashchallenge.injection;
+package com.stashinvest.stashchallenge.injection.module;
 
 import android.content.Context;
 
@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import com.stashinvest.stashchallenge.R;
 import com.stashinvest.stashchallenge.api.GettyImageInterceptor;
 import com.stashinvest.stashchallenge.api.GettyImagesApi;
+import com.stashinvest.stashchallenge.injection.qualifier.ForApplication;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,6 +20,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+@Singleton
 @Module
 public class NetworkModule {
     @Provides

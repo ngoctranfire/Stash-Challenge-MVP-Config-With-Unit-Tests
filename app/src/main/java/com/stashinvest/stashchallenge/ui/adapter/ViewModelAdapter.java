@@ -4,6 +4,7 @@ import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import com.stashinvest.stashchallenge.injection.scope.PerConfig;
 import com.stashinvest.stashchallenge.ui.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
@@ -12,6 +13,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
+@PerConfig
 public class ViewModelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final List<BaseViewModel> viewModels;
     private final SparseArrayCompat<BaseViewModel> viewTypeMap;
@@ -19,6 +23,7 @@ public class ViewModelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Inject
     public ViewModelAdapter() {
+        Timber.i("ViewModelAdapter#init");
         viewModels = new ArrayList<>();
         viewTypeMap = new SparseArrayCompat<>();
     }

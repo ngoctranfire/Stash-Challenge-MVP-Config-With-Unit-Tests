@@ -1,19 +1,16 @@
-package com.stashinvest.stashchallenge.ui.activity;
+package com.stashinvest.stashchallenge.ui.main;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
-import com.stashinvest.stashchallenge.App;
 import com.stashinvest.stashchallenge.R;
-import com.stashinvest.stashchallenge.ui.fragment.MainFragment;
-import com.stashinvest.stashchallenge.ui.fragment.PopUpDialogFragment;
+import com.stashinvest.stashchallenge.ui.base.BaseActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        App.getInstance().getAppComponent().inject(this);
         setContentView(R.layout.activity_main);
 
         getSupportFragmentManager()

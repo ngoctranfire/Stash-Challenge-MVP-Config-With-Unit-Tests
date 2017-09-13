@@ -1,4 +1,4 @@
-package com.stashinvest.stashchallenge.injection;
+package com.stashinvest.stashchallenge.injection.qualifier;
 
 import java.lang.annotation.Retention;
 
