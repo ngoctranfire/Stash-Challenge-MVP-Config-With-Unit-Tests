@@ -1,5 +1,7 @@
 package com.stashinvest.stashchallenge.ui.factory;
 
+import android.support.annotation.NonNull;
+
 import com.stashinvest.stashchallenge.api.model.ImageResult;
 import com.stashinvest.stashchallenge.ui.viewmodel.GettyImageViewModel;
 
@@ -10,7 +12,8 @@ public class GettyImageFactory {
     public GettyImageFactory() {
     }
 
-    public GettyImageViewModel createGettyImageViewModel(int id, ImageResult imageResult, GettyImageViewModel.Listener listener) {
+    @NonNull
+    public GettyImageViewModel createGettyImageViewModel(int id, @NonNull ImageResult imageResult, @NonNull GettyImageViewModel.Listener listener) {
         return new GettyImageViewModel(id, imageResult, listener);
     }
 }

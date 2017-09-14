@@ -17,15 +17,13 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.stashinvest.stashchallenge.App;
 import com.stashinvest.stashchallenge.R;
-import com.stashinvest.stashchallenge.api.GettyImageService;
 import com.stashinvest.stashchallenge.api.model.ImageResponse;
 import com.stashinvest.stashchallenge.api.model.ImageResult;
 import com.stashinvest.stashchallenge.injection.qualifier.ForApplication;
 import com.stashinvest.stashchallenge.ui.adapter.ViewModelAdapter;
 import com.stashinvest.stashchallenge.ui.base.BaseActivity;
-import com.stashinvest.stashchallenge.ui.base.BaseContract;
+import com.stashinvest.stashchallenge.ui.details.PopUpDialogFragment;
 import com.stashinvest.stashchallenge.ui.factory.GettyImageFactory;
 import com.stashinvest.stashchallenge.ui.viewmodel.BaseViewModel;
 import com.stashinvest.stashchallenge.util.SpaceItemDecoration;
@@ -48,14 +46,14 @@ public class MainFragment extends Fragment implements MainContract.View {
 
     @Inject ViewModelAdapter adapter;
     @Inject MainPresenter mainPresenter;
+    @Inject GettyImageFactory gettyImageFactory;
     @Inject Activity activity;
     @Inject @ForApplication Context context;
 
     @BindView(R.id.search_phrase) EditText searchView;
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
     @BindView(R.id.progress_bar) ProgressBar progressBar;
-    @BindDimen(R.dimen.image_space)
-    int space;
+    @BindDimen(R.dimen.image_space) int space;
 
     Unbinder unbinder;
 
@@ -122,8 +120,10 @@ public class MainFragment extends Fragment implements MainContract.View {
         mainPresenter.searchTasks(searchView.getText().toString());
     }
 
+    @Override
     public void onImageLongPress(String id, String uri) {
-        mainPresenter.getImageDetails(id, uri);
+        PopUpDialogFragment dialogFragment = PopUpDialogFragment.newInstance(id, uri);
+        dialogFragment.show(getFragmentManager(), "dialog");
     }
 
     @Override @UiThread
@@ -152,8 +152,14 @@ public class MainFragment extends Fragment implements MainContract.View {
     }
 
     @Override @UiThread
-    public void showSearchImages(List<BaseViewModel> viewModelList) {
-        adapter.setViewModels(viewModelList);
+    public void showSearchImages(ImageResponse imageResponse) {
+        List<ImageResult> images = imageResponse.getImages();
+        List<BaseViewModel> viewModels = new ArrayList<>();
+        int i = 0;
+        for (ImageResult imageResult : images) {
+            viewModels.add(gettyImageFactory.createGettyImageViewModel(i++, imageResult, this));
+        }
+        adapter.setViewModels(viewModels);
     }
 
     private void inject() {

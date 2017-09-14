@@ -3,9 +3,10 @@
 
 
     <string name="getty_base_url">https://api.gettyimages.com/v3/</string>
-    <string name="getty_api_key">74cwjp9e5c4wfhp92cue2kc8</string>
+    <string name="getty_api_key">wabsvamchaeqm5fdksjstbpf</string>
 
     <string name="search_hint">Search Phrase</string>
     <string name="metadata_title_format">%1$s by %2$s</string>
     <string name="search_error">Failed to complete the search for some reason.</string>
+    <string name="similar_image">Similar Image</string>
 </resources>

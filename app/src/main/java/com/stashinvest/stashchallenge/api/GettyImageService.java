@@ -21,18 +21,15 @@ public class GettyImageService {
     }
 
     public Flowable<ImageResponse> searchImages(String phrase) {
-        return api.searchImages(phrase, FIELDS, SORT_ORDER)
-                .subscribeOn(Schedulers.io());
+        return api.searchImages(phrase, FIELDS, SORT_ORDER);
     }
 
 
     public Flowable<MetadataResponse> getImageMetadata(String id) {
-        return api.getImageMetadata(id)
-                .subscribeOn(Schedulers.io());
+        return api.getImageMetadata(id);
     }
 
     public Flowable<ImageResponse> getSimilarImages(String id) {
-        return api.getSimilarImages(id)
-                .subscribeOn(Schedulers.io());
+        return api.getSimilarImages(id);
     }
 }

@@ -1,5 +1,6 @@
 package com.stashinvest.stashchallenge.ui.viewmodel;
 
+import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.stashinvest.stashchallenge.R;
@@ -10,11 +11,11 @@ import com.stashinvest.stashchallenge.util.LongPressGestureDetector;
 import static com.stashinvest.stashchallenge.ui.viewmodel.ViewModelType.GETTY_IMAGE;
 
 public class GettyImageViewModel extends BaseViewModel<GettyImageViewHolder> implements LongPressGestureDetector.Listener {
-    private final ImageResult imageResult;
-    private final Listener listener;
+    @NonNull private final ImageResult imageResult;
+    @NonNull private final Listener listener;
     private final int id;
 
-    public GettyImageViewModel(int id, ImageResult imageResult, Listener listener) {
+    public GettyImageViewModel(int id, @NonNull ImageResult imageResult, @NonNull Listener listener) {
         super(R.layout.getty_image_layout);
         this.id = id;
         this.imageResult = imageResult;
@@ -38,9 +39,7 @@ public class GettyImageViewModel extends BaseViewModel<GettyImageViewHolder> imp
 
     @Override
     public void onLongPress() {
-        if (listener != null) {
-            listener.onImageLongPress(imageResult.getId(), imageResult.getThumbUri());
-        }
+        listener.onImageLongPress(imageResult.getId(), imageResult.getThumbUri());
     }
 
     public interface Listener {

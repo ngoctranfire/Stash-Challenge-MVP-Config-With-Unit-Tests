@@ -6,6 +6,7 @@ project.ext {
     glideVersion = "3.5.2"
     gradlePluginVersion = '3.0.0-beta4'
     junitVersion = '4.12'
+    mockito2Version = "2.8.47"
     okhttpVersion = '3.8.1'
     retrofitVersion = '2.3.0'
     rxJavaVersion = '2.10'

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="image_space">4dp</dimen>
+    <dimen name="similar_image_padding">2dp</dimen>
+    <dimen name="pop_up_padding">2dp</dimen>
 </resources>
